@@ -12,9 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 # libraries 
 library(tidyverse)
-install.packages("ggjoy")
+install.packages("ggridges")
 library(ggplot2)
-library(ggjoy)
+library(ggridges)
 ```
 
 
@@ -25,10 +25,16 @@ suicide_stats <- readr::read_csv(url)
 ```
 
 ```{r}
-suicide_stats %>%
-ggplot(aes(Age,2017))+
-  geom_joy() + 
-  theme_joy() 
+# reshape data into "tidy" format
+suicide_stats_tidy <- suicide_stats %>% 
+  gather("year","suicides",2:26)
+```
+
+
+```{r}
+suicide_stats_tidy %>%
+  ggplot(aes(x=suicides,y=year))+ 
+  geom_density_ridges(scale=4,rel_min_height = 0.05)
 ```
 
 
