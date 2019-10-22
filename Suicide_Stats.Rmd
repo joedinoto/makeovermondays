@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 # libraries 
 library(tidyverse)
-install.packages("ggridges")
+#install.packages("ggridges")
 library(ggplot2)
 library(ggridges)
 ```
