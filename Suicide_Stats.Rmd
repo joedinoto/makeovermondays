@@ -1,0 +1,34 @@
+---
+title: "Suicide_Stats"
+author: "joedinoto"
+date: "10/21/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# libraries 
+library(tidyverse)
+install.packages("ggjoy")
+library(ggplot2)
+library(ggjoy)
+```
+
+
+```{r}
+# Download the Data
+url="https://www.ons.gov.uk/visualisations/dvc661/drugs/datadownload.csv"
+suicide_stats <- readr::read_csv(url)
+```
+
+```{r}
+suicide_stats %>%
+ggplot(aes(Age,2017))+
+  geom_joy() + 
+  theme_joy() 
+```
+
+
