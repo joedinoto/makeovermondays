@@ -2,7 +2,9 @@
 title: "UK_life_expectancy"
 author: "joedinoto"
 date: "10/21/2019"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -33,7 +35,7 @@ unique(UK_life_expentancy_small$`Local Authority`) # number of unique Local Auth
 sum(is.na(UK_life_expentancy_small$`Local Authority`)) # count of NAs
 ```
 ```{r}
-# boxplots for each of the 33 wards, average of lifespan by year
+# Next step, boxplots for each of the 33 wards, average of lifespan by year
 ```
 
 
