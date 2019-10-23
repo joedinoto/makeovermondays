@@ -1,0 +1,27 @@
+---
+title: "UK_life_expectancy"
+author: "joedinoto"
+date: "10/21/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r warnings=FALSE, echo=FALSE}
+# libraries
+library(tidyverse)
+```
+
+
+```{r}
+url = "https://data.london.gov.uk/download/life-expectancy-birth-and-age-65-ward/38b6745f-168a-493d-9ff4-2b3ba63e86f2/life-expectancy-ward-at-Birth.csv"
+UK_life_expentancy_original <- readr::read_csv(url)
+```
+
+```{r}
+UK_life_expentancy_small <- UK_life_expentancy %>%
+  select()
+```
+
