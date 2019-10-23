@@ -382,13 +382,11 @@ $(document).ready(function () {
 </div>
 
 
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code># libraries
+library(tidyverse)</code></pre>
+<pre class="r"><code># obtain the data
+url = &quot;https://data.london.gov.uk/download/life-expectancy-birth-and-age-65-ward/38b6745f-168a-493d-9ff4-2b3ba63e86f2/life-expectancy-ward-at-Birth.csv&quot;
+UK_life_expentancy_original &lt;- readr::read_csv(url)</code></pre>
 <pre class="r"><code># Local authority, males, avg life expectancy, by year
 UK_life_expentancy_small &lt;- UK_life_expentancy_original %&gt;%
   select(`Local Authority`,matches(&quot;(Male;Life)&quot;), -matches(&quot;female&quot;)) </code></pre>

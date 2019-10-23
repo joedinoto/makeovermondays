@@ -11,13 +11,13 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r warnings=FALSE, echo=FALSE, message=FALSE}
+```{r message=FALSE, warning=FALSE}
 # libraries
 library(tidyverse)
 ```
 
 
-```{r warnings=FALSE, echo=FALSE, message=FALSE, cache=TRUE}
+```{r warning=FALSE, message=FALSE, cache=TRUE}
 # obtain the data
 url = "https://data.london.gov.uk/download/life-expectancy-birth-and-age-65-ward/38b6745f-168a-493d-9ff4-2b3ba63e86f2/life-expectancy-ward-at-Birth.csv"
 UK_life_expentancy_original <- readr::read_csv(url)

@@ -10,36 +10,18 @@ output:
 
 
 
-```
-## Warning: package 'tidyverse' was built under R version 3.5.3
-```
-
-```
-## Warning: package 'ggplot2' was built under R version 3.5.3
-```
-
-```
-## Warning: package 'tibble' was built under R version 3.5.3
-```
-
-```
-## Warning: package 'tidyr' was built under R version 3.5.3
-```
-
-```
-## Warning: package 'purrr' was built under R version 3.5.3
-```
-
-```
-## Warning: package 'dplyr' was built under R version 3.5.3
-```
-
-```
-## Warning: package 'forcats' was built under R version 3.5.3
+```r
+# libraries
+library(tidyverse)
 ```
 
 
 
+```r
+# obtain the data
+url = "https://data.london.gov.uk/download/life-expectancy-birth-and-age-65-ward/38b6745f-168a-493d-9ff4-2b3ba63e86f2/life-expectancy-ward-at-Birth.csv"
+UK_life_expentancy_original <- readr::read_csv(url)
+```
 
 
 ```r
