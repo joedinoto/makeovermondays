@@ -1,0 +1,77 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r warning=FALSE,message=FALSE}
+# get the data
+horror_movies <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv")
+```
+
+```{r warning=FALSE,message=FALSE}
+# libraries
+library(tidyverse)
+library(lubridate)
+```
+
+
+```{r}
+# clean the data
+horror_movies$release_date <- dmy(horror_movies$release_date)
+horror_movies$movie_run_time <- gsub(" min", "",horror_movies$movie_run_time) %>% as.integer()
+horror_movies$movie_rating <- as.numeric(horror_movies$movie_rating)
+horror_movies %>%
+  extract(title, "year", "\\((\\d\\d\\d\\d)\\)$", remove = FALSE, convert = TRUE) %>%
+  mutate(budget = parse_number(budget)) %>%
+  separate(plot, c("director", "cast_sentence", "plot"), extra = "merge", sep = "\\. ", fill = "right") %>%
+  distinct(title, .keep_all = TRUE)
+```
+
+```{r}
+horror_movies %>%
+  separate_rows(genres, sep = "\\| ") %>%
+  mutate(genre = fct_lump(genres, 5)) %>%
+  ggplot(aes(genre, review_rating)) +
+  geom_boxplot()
+```
+
+```{r}
+horror_movies %>%
+  mutate(movie_rating = fct_lump(movie_rating, 5),
+         movie_rating = fct_reorder(movie_rating, review_rating, na.rm = TRUE)) %>%
+  ggplot(aes(movie_rating, review_rating)) +
+  geom_boxplot() +
+  coord_flip()
+horror_movies %>%
+  filter(!is.na(movie_rating)) %>%
+  mutate(movie_rating = fct_lump(movie_rating, 5)) %>%
+  lm(review_rating ~ movie_rating, data = .) %>%
+  anova()
+```
+
+```{r}
+horror_movies %>%
+  filter(!is.na(movie_rating)) %>%
+  filter(!is.na(review_rating)) %>%
+  filter(!is.na(budget)) %>%
+  ggplot(aes(budget, review_rating)) +
+  geom_point() +
+  scale_x_log10(labels = scales::dollar) +
+  geom_smooth(method = "lm")
+```
+
+```{r}
+library(glmnet)
+library(Matrix)
+movie_word_matrix <- horror_movies_unnested %>%
+  filter(!is.na(review_rating)) %>%
+  add_count(word) %>%
+  filter(n >= 20) %>%
+  count(title, word) %>%
+  cast_sparse(title, word, n)
+rating <- horror_movies$review_rating[match(rownames(movie_word_matrix), horror_movies$title)]
+lasso_model <- cv.glmnet(movie_word_matrix, rating)
+```
+
+
+
+
